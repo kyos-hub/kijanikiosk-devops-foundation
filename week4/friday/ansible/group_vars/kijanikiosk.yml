@@ -1,0 +1,6 @@
+---
+# Challenge B: this path must match var.ssh_public_key_path (minus .pub)
+# passed into Terraform's terraform/variables.tf. Keeping it as a single
+# named variable, referenced from inventory.ini's ansible_ssh_private_key_file,
+# is what prevents the two tools from drifting apart.
+kk_ssh_private_key_path: ~/.ssh/id_rsa

@@ -1,0 +1,14 @@
+---
+kk_service_name: kk-api
+kk_service_user: kk-api
+kk_service_group: kk-api
+kk_service_port: 8080
+kk_service_description: "KijaniKiosk API service"
+kk_service_exec: "/usr/bin/python3 {{ kk_base_dir }}/api/app.py"
+
+# Hardening directives — baseline level for the public-facing API.
+kk_protect_system: strict
+kk_protect_home: "true"
+kk_private_tmp: "true"
+kk_no_new_privileges: "true"
+kk_memory_deny_write_execute: "true"

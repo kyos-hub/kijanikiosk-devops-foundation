@@ -1,0 +1,33 @@
+---
+kk_service_name: kk-payments
+kk_service_user: kk-payments
+kk_service_group: kk-payments
+kk_service_port: 8443
+kk_service_description: "KijaniKiosk Payments service"
+kk_service_exec: "/usr/bin/python3 {{ kk_base_dir }}/payments/app.py"
+# Challenge D: EnvironmentFile lives under kk_base_dir (writable under
+# ProtectSystem=strict), never under /etc — that path made the service
+# fail to read its own config in Week 3 until it was moved here.
+kk_env_file: "{{ kk_config_dir }}/payments-api.env"
+
+# Requirement 5: full hardening tier, carried over from Week 3 so
+# systemd-analyze security scores below 2.5.
+kk_protect_system: strict
+kk_protect_home: "true"
+kk_private_tmp: "true"
+kk_no_new_privileges: "true"
+kk_memory_deny_write_execute: "true"
+kk_protect_kernel_tunables: "true"
+kk_protect_kernel_modules: "true"
+kk_protect_kernel_logs: "true"
+kk_protect_control_groups: "true"
+kk_protect_clock: "true"
+kk_protect_hostname: "true"
+kk_restrict_suid_sgid: "true"
+kk_restrict_realtime: "true"
+kk_restrict_namespaces: "true"
+kk_lock_personality: "true"
+kk_remove_ipc: "true"
+kk_capability_bounding_set: "CAP_NET_BIND_SERVICE"
+kk_system_call_filter: "@system-service"
+kk_system_call_architectures: "native"
