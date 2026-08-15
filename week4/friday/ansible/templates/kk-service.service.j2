@@ -1,0 +1,97 @@
+[Unit]
+Description={{ kk_service_description }}
+After=network.target
+
+[Service]
+Type=simple
+User={{ kk_service_user }}
+Group={{ kk_service_group }}
+WorkingDirectory={{ kk_base_dir }}
+ExecStart={{ kk_service_exec }}
+Restart=on-failure
+RestartSec=5
+{% if kk_env_file is defined %}
+EnvironmentFile={{ kk_env_file }}
+{% endif %}
+
+# --- Hardening directives (Requirement 5 / Week 3 carryover) ---
+{% if kk_protect_system is defined %}
+ProtectSystem={{ kk_protect_system }}
+{% endif %}
+{% if kk_protect_home is defined %}
+ProtectHome={{ kk_protect_home }}
+{% endif %}
+{% if kk_private_tmp is defined %}
+PrivateTmp={{ kk_private_tmp }}
+{% endif %}
+{% if kk_no_new_privileges is defined %}
+NoNewPrivileges={{ kk_no_new_privileges }}
+{% endif %}
+{% if kk_memory_deny_write_execute is defined %}
+MemoryDenyWriteExecute={{ kk_memory_deny_write_execute }}
+{% endif %}
+{% if kk_protect_kernel_tunables is defined %}
+ProtectKernelTunables={{ kk_protect_kernel_tunables }}
+{% endif %}
+{% if kk_protect_kernel_modules is defined %}
+ProtectKernelModules={{ kk_protect_kernel_modules }}
+{% endif %}
+{% if kk_protect_kernel_logs is defined %}
+ProtectKernelLogs={{ kk_protect_kernel_logs }}
+{% endif %}
+{% if kk_protect_control_groups is defined %}
+ProtectControlGroups={{ kk_protect_control_groups }}
+{% endif %}
+{% if kk_protect_clock is defined %}
+ProtectClock={{ kk_protect_clock }}
+{% endif %}
+{% if kk_protect_hostname is defined %}
+ProtectHostname={{ kk_protect_hostname }}
+{% endif %}
+{% if kk_restrict_suid_sgid is defined %}
+RestrictSUIDSGID={{ kk_restrict_suid_sgid }}
+{% endif %}
+{% if kk_restrict_realtime is defined %}
+RestrictRealtime={{ kk_restrict_realtime }}
+{% endif %}
+{% if kk_restrict_namespaces is defined %}
+RestrictNamespaces={{ kk_restrict_namespaces }}
+{% endif %}
+{% if kk_lock_personality is defined %}
+LockPersonality={{ kk_lock_personality }}
+{% endif %}
+{% if kk_remove_ipc is defined %}
+RemoveIPC={{ kk_remove_ipc }}
+{% endif %}
+{% if kk_capability_bounding_set is defined %}
+CapabilityBoundingSet={{ kk_capability_bounding_set }}
+AmbientCapabilities={{ kk_capability_bounding_set }}
+{% endif %}
+{% if kk_system_call_filter is defined %}
+SystemCallFilter={{ kk_system_call_filter }}
+{% endif %}
+{% if kk_system_call_architectures is defined %}
+SystemCallArchitectures={{ kk_system_call_architectures }}
+{% endif %}
+
+{% if kk_restrict_address_families is defined %}
+RestrictAddressFamilies={{ kk_restrict_address_families }}
+{% endif %}
+{% if kk_protect_proc is defined %}
+ProtectProc={{ kk_protect_proc }}
+{% endif %}
+{% if kk_proc_subset is defined %}
+ProcSubset={{ kk_proc_subset }}
+{% endif %}
+{% if kk_umask is defined %}
+UMask={{ kk_umask }}
+{% endif %}
+{% if kk_private_users is defined %}
+PrivateUsers={{ kk_private_users }}
+{% endif %}
+{% if kk_private_devices is defined %}
+PrivateDevices={{ kk_private_devices }}
+{% endif %}
+
+[Install]
+WantedBy=multi-user.target

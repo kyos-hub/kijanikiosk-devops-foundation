@@ -1,0 +1,20 @@
+---
+# Shared across all three servers. Per-server overrides live in host_vars/.
+
+kk_base_dir: /opt/kijanikiosk
+kk_config_dir: "{{ kk_base_dir }}/config"
+kk_log_dir: /var/log/kijanikiosk
+
+kk_packages:
+  - python3
+  - python3-pip
+  - ufw
+  - rsyslog
+  - logrotate
+
+kk_firewall_allowed_ssh_cidr: "0.0.0.0/0"   # tightened per-host in host_vars where needed
+kk_journal_max_use: "500M"
+kk_journal_max_retention: "30day"
+
+kk_logrotate_rotate: 14
+kk_logrotate_frequency: daily

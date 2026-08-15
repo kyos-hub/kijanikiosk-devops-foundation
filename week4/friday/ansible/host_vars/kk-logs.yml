@@ -1,0 +1,16 @@
+---
+kk_service_name: kk-logs
+kk_service_user: kk-logs
+kk_service_group: kk-logs
+kk_service_port: 9090
+kk_service_description: "KijaniKiosk Log aggregation service"
+kk_service_exec: "/usr/bin/python3 {{ kk_base_dir }}/logs/app.py"
+
+kk_protect_system: strict
+kk_protect_home: "true"
+kk_private_tmp: "true"
+kk_no_new_privileges: "true"
+kk_memory_deny_write_execute: "true"
+kk_protect_kernel_tunables: "true"
+kk_protect_kernel_modules: "true"
+kk_protect_control_groups: "true"

@@ -1,0 +1,33 @@
+---
+kk_service_name: kk-payments
+kk_service_user: kk-payments
+kk_service_group: kk-payments
+kk_service_port: 8443
+kk_service_description: "KijaniKiosk Payments service"
+kk_service_exec: "/usr/bin/python3 {{ kk_base_dir }}/payments/app.py"
+kk_env_file: "{{ kk_config_dir }}/payments-api.env"
+kk_protect_system: strict
+kk_protect_home: "true"
+kk_private_tmp: "true"
+kk_no_new_privileges: "true"
+kk_memory_deny_write_execute: "true"
+kk_protect_kernel_tunables: "true"
+kk_protect_kernel_modules: "true"
+kk_protect_kernel_logs: "true"
+kk_protect_control_groups: "true"
+kk_protect_clock: "true"
+kk_protect_hostname: "true"
+kk_restrict_suid_sgid: "true"
+kk_restrict_realtime: "true"
+kk_restrict_namespaces: "true"
+kk_lock_personality: "true"
+kk_remove_ipc: "true"
+kk_capability_bounding_set: ""
+kk_system_call_filter: "@system-service"
+kk_system_call_architectures: "native"
+kk_restrict_address_families: "AF_INET AF_INET6"
+kk_protect_proc: invisible
+kk_proc_subset: pid
+kk_umask: "0077"
+kk_private_users: "true"
+kk_private_devices: "true"

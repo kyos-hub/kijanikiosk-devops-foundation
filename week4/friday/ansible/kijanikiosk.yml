@@ -1,0 +1,154 @@
+---
+# KijaniKiosk staging provisioning — reproduces the Week 3 manual script
+# across all three servers via idempotent Ansible modules only.
+# Second run must show changed=0 on every host (Requirement 2, criterion 6).
+
+- name: Provision KijaniKiosk staging servers to Week 3 standard
+  hosts: kijanikiosk
+  become: true
+  gather_facts: true
+
+  tasks:
+
+    # ---------- Phase 1: packages ----------
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      ansible.builtin.apt:
+        name: "{{ kk_packages }}"
+        state: present
+
+    # ---------- Phase 2: service accounts ----------
+    - name: Create service group
+      ansible.builtin.group:
+        name: "{{ kk_service_group }}"
+        system: true
+        state: present
+
+    - name: Create service user (no login, no home shell access)
+      ansible.builtin.user:
+        name: "{{ kk_service_user }}"
+        group: "{{ kk_service_group }}"
+        system: true
+        shell: /usr/sbin/nologin
+        create_home: false
+        state: present
+
+    # ---------- Phase 3: directory structure ----------
+    - name: Create base application directory
+      ansible.builtin.file:
+        path: "{{ kk_base_dir }}"
+        state: directory
+        owner: "{{ kk_service_user }}"
+        group: "{{ kk_service_group }}"
+        mode: "0750"
+
+    - name: Create config directory (writable under ProtectSystem=strict)
+      ansible.builtin.file:
+        path: "{{ kk_config_dir }}"
+        state: directory
+        owner: "{{ kk_service_user }}"
+        group: "{{ kk_service_group }}"
+        mode: "0750"
+
+    - name: Create log directory
+      ansible.builtin.file:
+        path: "{{ kk_log_dir }}"
+        state: directory
+        owner: "{{ kk_service_user }}"
+        group: "{{ kk_service_group }}"
+        mode: "0750"
+
+    - name: Deploy service-specific environment file (payments only)
+      ansible.builtin.template:
+        src: payments-api.env.j2
+        dest: "{{ kk_env_file }}"
+        owner: "{{ kk_service_user }}"
+        group: "{{ kk_service_group }}"
+        mode: "0640"
+      when: kk_env_file is defined
+      notify: restart kk service
+
+    # ---------- Phase 4: systemd unit files ----------
+    - name: Deploy systemd unit from template
+      ansible.builtin.template:
+        src: kk-service.service.j2
+        dest: "/etc/systemd/system/{{ kk_service_name }}.service"
+        owner: root
+        group: root
+        mode: "0644"
+      notify:
+        - reload systemd
+        - restart kk service
+
+    - name: Enable and start service
+      ansible.builtin.systemd:
+        name: "{{ kk_service_name }}"
+        enabled: true
+        state: started
+        daemon_reload: true
+
+    # ---------- Phase 5: firewall rules ----------
+    - name: Set default UFW policy - deny incoming
+      community.general.ufw:
+        default: deny
+        direction: incoming
+
+    - name: Set default UFW policy - allow outgoing
+      community.general.ufw:
+        default: allow
+        direction: outgoing
+
+    - name: Allow SSH
+      community.general.ufw:
+        rule: allow
+        port: "22"
+        proto: tcp
+        src: "{{ kk_firewall_allowed_ssh_cidr }}"
+
+    - name: Allow service port
+      community.general.ufw:
+        rule: allow
+        port: "{{ kk_service_port | string }}"
+        proto: tcp
+
+    - name: Enable UFW
+      community.general.ufw:
+        state: enabled
+
+    # ---------- Phase 6: journal persistence ----------
+    - name: Configure journald for persistent storage
+      ansible.builtin.template:
+        src: journald.conf.j2
+        dest: /etc/systemd/journald.conf
+        owner: root
+        group: root
+        mode: "0644"
+      notify: restart journald
+
+    # ---------- Phase 7: logrotate ----------
+    - name: Deploy logrotate policy for the service
+      ansible.builtin.template:
+        src: kk-service.logrotate.j2
+        dest: "/etc/logrotate.d/{{ kk_service_name }}"
+        owner: root
+        group: root
+        mode: "0644"
+
+  handlers:
+    - name: reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+    - name: restart kk service
+      ansible.builtin.systemd:
+        name: "{{ kk_service_name }}"
+        state: restarted
+
+    - name: restart journald
+      ansible.builtin.systemd:
+        name: systemd-journald
+        state: restarted
