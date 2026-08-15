@@ -74,5 +74,24 @@ SystemCallFilter={{ kk_system_call_filter }}
 SystemCallArchitectures={{ kk_system_call_architectures }}
 {% endif %}
 
+{% if kk_restrict_address_families is defined %}
+RestrictAddressFamilies={{ kk_restrict_address_families }}
+{% endif %}
+{% if kk_protect_proc is defined %}
+ProtectProc={{ kk_protect_proc }}
+{% endif %}
+{% if kk_proc_subset is defined %}
+ProcSubset={{ kk_proc_subset }}
+{% endif %}
+{% if kk_umask is defined %}
+UMask={{ kk_umask }}
+{% endif %}
+{% if kk_private_users is defined %}
+PrivateUsers={{ kk_private_users }}
+{% endif %}
+{% if kk_private_devices is defined %}
+PrivateDevices={{ kk_private_devices }}
+{% endif %}
+
 [Install]
 WantedBy=multi-user.target

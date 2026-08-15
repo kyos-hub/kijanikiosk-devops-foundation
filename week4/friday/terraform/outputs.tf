@@ -1,19 +1,22 @@
-# Requirement 1, criterion 4: outputs formatted for direct use in the
-# Ansible inventory. pipeline.sh reads these via `terraform output -raw`.
-
 output "api_server_ip" {
-  description = "IP of the api server container."
-  value       = module.server["api"].ip_address
+  value = module.server["api"].ip_address
+}
+output "api_server_port" {
+  value = module.server["api"].ssh_port
 }
 
 output "payments_server_ip" {
-  description = "IP of the payments server container."
-  value       = module.server["payments"].ip_address
+  value = module.server["payments"].ip_address
+}
+output "payments_server_port" {
+  value = module.server["payments"].ssh_port
 }
 
 output "logs_server_ip" {
-  description = "IP of the logs server container."
-  value       = module.server["logs"].ip_address
+  value = module.server["logs"].ip_address
+}
+output "logs_server_port" {
+  value = module.server["logs"].ssh_port
 }
 
 output "ssh_commands" {

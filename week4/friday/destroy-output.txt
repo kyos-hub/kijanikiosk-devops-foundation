@@ -1,0 +1,351 @@
+[0m[1mdocker_network.kijanikiosk: Refreshing state... [id=30a928d24ac87ac63623dcb9152e3519aad4d802e8d796e2cd432b5f28348746][0m
+[0m[1mmodule.server["payments"].docker_container.vm: Refreshing state... [id=8b40f07565cba7764b93d442798d42fb30594c4fd09fd22923df0cd946274bc6][0m
+[0m[1mmodule.server["api"].docker_container.vm: Refreshing state... [id=6ad2477c34397ffb965369cff48d80183b71bbcb167e23bd33964e7e22a9c15e][0m
+[0m[1mmodule.server["logs"].docker_container.vm: Refreshing state... [id=b4ff45f86a6503ca5bf0f3a218194d61290416b711a4d2eb12954cf712165bc6][0m
+[0m[1mmodule.server["logs"].null_resource.provision_ssh: Refreshing state... [id=6497557741611884276][0m
+[0m[1mmodule.server["api"].null_resource.provision_ssh: Refreshing state... [id=7307854859010095495][0m
+[0m[1mmodule.server["payments"].null_resource.provision_ssh: Refreshing state... [id=685676920186687433][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # docker_network.kijanikiosk[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "docker_network" "kijanikiosk" {
+      [31m-[0m[0m attachable   = false [90m-> null[0m[0m
+      [31m-[0m[0m driver       = "bridge" [90m-> null[0m[0m
+      [31m-[0m[0m id           = "30a928d24ac87ac63623dcb9152e3519aad4d802e8d796e2cd432b5f28348746" [90m-> null[0m[0m
+      [31m-[0m[0m ingress      = false [90m-> null[0m[0m
+      [31m-[0m[0m internal     = false [90m-> null[0m[0m
+      [31m-[0m[0m ipam_driver  = "default" [90m-> null[0m[0m
+      [31m-[0m[0m ipam_options = {} [90m-> null[0m[0m
+      [31m-[0m[0m ipv6         = false [90m-> null[0m[0m
+      [31m-[0m[0m name         = "kijanikiosk-net" [90m-> null[0m[0m
+      [31m-[0m[0m options      = {
+          [31m-[0m[0m "com.docker.network.enable_ipv4" = "true"
+          [31m-[0m[0m "com.docker.network.enable_ipv6" = "false"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m scope        = "local" [90m-> null[0m[0m
+
+      [31m-[0m[0m ipam_config {
+          [31m-[0m[0m aux_address = {} [90m-> null[0m[0m
+          [31m-[0m[0m gateway     = "172.19.0.1" [90m-> null[0m[0m
+          [31m-[0m[0m subnet      = "172.19.0.0/16" [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+    }
+
+[1m  # module.server["api"].docker_container.vm[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "docker_container" "vm" {
+      [31m-[0m[0m attach                                      = false [90m-> null[0m[0m
+      [31m-[0m[0m command                                     = [
+          [31m-[0m[0m "/lib/systemd/systemd",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m container_read_refresh_timeout_milliseconds = 15000 [90m-> null[0m[0m
+      [31m-[0m[0m cpu_shares                                  = 512 [90m-> null[0m[0m
+      [31m-[0m[0m dns                                         = [] [90m-> null[0m[0m
+      [31m-[0m[0m dns_opts                                    = [] [90m-> null[0m[0m
+      [31m-[0m[0m dns_search                                  = [] [90m-> null[0m[0m
+      [31m-[0m[0m entrypoint                                  = [] [90m-> null[0m[0m
+      [31m-[0m[0m env                                         = [] [90m-> null[0m[0m
+      [31m-[0m[0m group_add                                   = [] [90m-> null[0m[0m
+      [31m-[0m[0m hostname                                    = "kijanikiosk-api" [90m-> null[0m[0m
+      [31m-[0m[0m id                                          = "6ad2477c34397ffb965369cff48d80183b71bbcb167e23bd33964e7e22a9c15e" [90m-> null[0m[0m
+      [31m-[0m[0m image                                       = "geerlingguy/docker-ubuntu2204-ansible:latest" [90m-> null[0m[0m
+      [31m-[0m[0m init                                        = false [90m-> null[0m[0m
+      [31m-[0m[0m ipc_mode                                    = "private" [90m-> null[0m[0m
+      [31m-[0m[0m log_driver                                  = "json-file" [90m-> null[0m[0m
+      [31m-[0m[0m log_opts                                    = {} [90m-> null[0m[0m
+      [31m-[0m[0m logs                                        = false [90m-> null[0m[0m
+      [31m-[0m[0m max_retry_count                             = 0 [90m-> null[0m[0m
+      [31m-[0m[0m memory                                      = 512 [90m-> null[0m[0m
+      [31m-[0m[0m memory_reservation                          = 0 [90m-> null[0m[0m
+      [31m-[0m[0m memory_swap                                 = 1024 [90m-> null[0m[0m
+      [31m-[0m[0m must_run                                    = true [90m-> null[0m[0m
+      [31m-[0m[0m name                                        = "kijanikiosk-api" [90m-> null[0m[0m
+      [31m-[0m[0m network_data                                = [
+          [31m-[0m[0m {
+              [31m-[0m[0m gateway                   = "172.19.0.1"
+              [31m-[0m[0m global_ipv6_prefix_length = 0
+              [31m-[0m[0m ip_address                = "172.19.0.3"
+              [31m-[0m[0m ip_prefix_length          = 16
+              [31m-[0m[0m mac_address               = "26:7f:13:00:72:46"
+              [31m-[0m[0m network_name              = "kijanikiosk-net"
+                [90m# (2 unchanged attributes hidden)[0m[0m
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m network_mode                                = "bridge" [90m-> null[0m[0m
+      [31m-[0m[0m privileged                                  = true [90m-> null[0m[0m
+      [31m-[0m[0m publish_all_ports                           = false [90m-> null[0m[0m
+      [31m-[0m[0m read_only                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m remove_volumes                              = true [90m-> null[0m[0m
+      [31m-[0m[0m restart                                     = "no" [90m-> null[0m[0m
+      [31m-[0m[0m rm                                          = false [90m-> null[0m[0m
+      [31m-[0m[0m runtime                                     = "runc" [90m-> null[0m[0m
+      [31m-[0m[0m security_opts                               = [
+          [31m-[0m[0m "label=disable",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m shm_size                                    = 64 [90m-> null[0m[0m
+      [31m-[0m[0m start                                       = true [90m-> null[0m[0m
+      [31m-[0m[0m stdin_open                                  = false [90m-> null[0m[0m
+      [31m-[0m[0m stop_timeout                                = 0 [90m-> null[0m[0m
+      [31m-[0m[0m storage_opts                                = {} [90m-> null[0m[0m
+      [31m-[0m[0m sysctls                                     = {} [90m-> null[0m[0m
+      [31m-[0m[0m tmpfs                                       = {
+          [31m-[0m[0m "/run"      = [90mnull[0m[0m
+          [31m-[0m[0m "/run/lock" = [90mnull[0m[0m
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tty                                         = true [90m-> null[0m[0m
+      [31m-[0m[0m wait                                        = false [90m-> null[0m[0m
+      [31m-[0m[0m wait_timeout                                = 60 [90m-> null[0m[0m
+        [90m# (8 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m networks_advanced {
+          [31m-[0m[0m aliases      = [] [90m-> null[0m[0m
+          [31m-[0m[0m name         = "kijanikiosk-net" [90m-> null[0m[0m
+            [90m# (3 unchanged attributes hidden)[0m[0m
+        }
+
+      [31m-[0m[0m ports {
+          [31m-[0m[0m external = 2222 [90m-> null[0m[0m
+          [31m-[0m[0m internal = 22 [90m-> null[0m[0m
+          [31m-[0m[0m ip       = "0.0.0.0" [90m-> null[0m[0m
+          [31m-[0m[0m protocol = "tcp" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m volumes {
+          [31m-[0m[0m container_path = "/sys/fs/cgroup" [90m-> null[0m[0m
+          [31m-[0m[0m host_path      = "/sys/fs/cgroup" [90m-> null[0m[0m
+          [31m-[0m[0m read_only      = false [90m-> null[0m[0m
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+    }
+
+[1m  # module.server["api"].null_resource.provision_ssh[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "null_resource" "provision_ssh" {
+      [31m-[0m[0m id       = "7307854859010095495" [90m-> null[0m[0m
+      [31m-[0m[0m triggers = {
+          [31m-[0m[0m "container_id" = "6ad2477c34397ffb965369cff48d80183b71bbcb167e23bd33964e7e22a9c15e"
+        } [90m-> null[0m[0m
+    }
+
+[1m  # module.server["logs"].docker_container.vm[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "docker_container" "vm" {
+      [31m-[0m[0m attach                                      = false [90m-> null[0m[0m
+      [31m-[0m[0m command                                     = [
+          [31m-[0m[0m "/lib/systemd/systemd",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m container_read_refresh_timeout_milliseconds = 15000 [90m-> null[0m[0m
+      [31m-[0m[0m cpu_shares                                  = 512 [90m-> null[0m[0m
+      [31m-[0m[0m dns                                         = [] [90m-> null[0m[0m
+      [31m-[0m[0m dns_opts                                    = [] [90m-> null[0m[0m
+      [31m-[0m[0m dns_search                                  = [] [90m-> null[0m[0m
+      [31m-[0m[0m entrypoint                                  = [] [90m-> null[0m[0m
+      [31m-[0m[0m env                                         = [] [90m-> null[0m[0m
+      [31m-[0m[0m group_add                                   = [] [90m-> null[0m[0m
+      [31m-[0m[0m hostname                                    = "kijanikiosk-logs" [90m-> null[0m[0m
+      [31m-[0m[0m id                                          = "b4ff45f86a6503ca5bf0f3a218194d61290416b711a4d2eb12954cf712165bc6" [90m-> null[0m[0m
+      [31m-[0m[0m image                                       = "geerlingguy/docker-ubuntu2204-ansible:latest" [90m-> null[0m[0m
+      [31m-[0m[0m init                                        = false [90m-> null[0m[0m
+      [31m-[0m[0m ipc_mode                                    = "private" [90m-> null[0m[0m
+      [31m-[0m[0m log_driver                                  = "json-file" [90m-> null[0m[0m
+      [31m-[0m[0m log_opts                                    = {} [90m-> null[0m[0m
+      [31m-[0m[0m logs                                        = false [90m-> null[0m[0m
+      [31m-[0m[0m max_retry_count                             = 0 [90m-> null[0m[0m
+      [31m-[0m[0m memory                                      = 768 [90m-> null[0m[0m
+      [31m-[0m[0m memory_reservation                          = 0 [90m-> null[0m[0m
+      [31m-[0m[0m memory_swap                                 = 1536 [90m-> null[0m[0m
+      [31m-[0m[0m must_run                                    = true [90m-> null[0m[0m
+      [31m-[0m[0m name                                        = "kijanikiosk-logs" [90m-> null[0m[0m
+      [31m-[0m[0m network_data                                = [
+          [31m-[0m[0m {
+              [31m-[0m[0m gateway                   = "172.19.0.1"
+              [31m-[0m[0m global_ipv6_prefix_length = 0
+              [31m-[0m[0m ip_address                = "172.19.0.4"
+              [31m-[0m[0m ip_prefix_length          = 16
+              [31m-[0m[0m mac_address               = "8e:30:f8:b5:bf:8b"
+              [31m-[0m[0m network_name              = "kijanikiosk-net"
+                [90m# (2 unchanged attributes hidden)[0m[0m
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m network_mode                                = "bridge" [90m-> null[0m[0m
+      [31m-[0m[0m privileged                                  = true [90m-> null[0m[0m
+      [31m-[0m[0m publish_all_ports                           = false [90m-> null[0m[0m
+      [31m-[0m[0m read_only                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m remove_volumes                              = true [90m-> null[0m[0m
+      [31m-[0m[0m restart                                     = "no" [90m-> null[0m[0m
+      [31m-[0m[0m rm                                          = false [90m-> null[0m[0m
+      [31m-[0m[0m runtime                                     = "runc" [90m-> null[0m[0m
+      [31m-[0m[0m security_opts                               = [
+          [31m-[0m[0m "label=disable",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m shm_size                                    = 64 [90m-> null[0m[0m
+      [31m-[0m[0m start                                       = true [90m-> null[0m[0m
+      [31m-[0m[0m stdin_open                                  = false [90m-> null[0m[0m
+      [31m-[0m[0m stop_timeout                                = 0 [90m-> null[0m[0m
+      [31m-[0m[0m storage_opts                                = {} [90m-> null[0m[0m
+      [31m-[0m[0m sysctls                                     = {} [90m-> null[0m[0m
+      [31m-[0m[0m tmpfs                                       = {
+          [31m-[0m[0m "/run"      = [90mnull[0m[0m
+          [31m-[0m[0m "/run/lock" = [90mnull[0m[0m
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tty                                         = true [90m-> null[0m[0m
+      [31m-[0m[0m wait                                        = false [90m-> null[0m[0m
+      [31m-[0m[0m wait_timeout                                = 60 [90m-> null[0m[0m
+        [90m# (8 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m networks_advanced {
+          [31m-[0m[0m aliases      = [] [90m-> null[0m[0m
+          [31m-[0m[0m name         = "kijanikiosk-net" [90m-> null[0m[0m
+            [90m# (3 unchanged attributes hidden)[0m[0m
+        }
+
+      [31m-[0m[0m ports {
+          [31m-[0m[0m external = 2224 [90m-> null[0m[0m
+          [31m-[0m[0m internal = 22 [90m-> null[0m[0m
+          [31m-[0m[0m ip       = "0.0.0.0" [90m-> null[0m[0m
+          [31m-[0m[0m protocol = "tcp" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m volumes {
+          [31m-[0m[0m container_path = "/sys/fs/cgroup" [90m-> null[0m[0m
+          [31m-[0m[0m host_path      = "/sys/fs/cgroup" [90m-> null[0m[0m
+          [31m-[0m[0m read_only      = false [90m-> null[0m[0m
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+    }
+
+[1m  # module.server["logs"].null_resource.provision_ssh[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "null_resource" "provision_ssh" {
+      [31m-[0m[0m id       = "6497557741611884276" [90m-> null[0m[0m
+      [31m-[0m[0m triggers = {
+          [31m-[0m[0m "container_id" = "b4ff45f86a6503ca5bf0f3a218194d61290416b711a4d2eb12954cf712165bc6"
+        } [90m-> null[0m[0m
+    }
+
+[1m  # module.server["payments"].docker_container.vm[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "docker_container" "vm" {
+      [31m-[0m[0m attach                                      = false [90m-> null[0m[0m
+      [31m-[0m[0m command                                     = [
+          [31m-[0m[0m "/lib/systemd/systemd",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m container_read_refresh_timeout_milliseconds = 15000 [90m-> null[0m[0m
+      [31m-[0m[0m cpu_shares                                  = 512 [90m-> null[0m[0m
+      [31m-[0m[0m dns                                         = [] [90m-> null[0m[0m
+      [31m-[0m[0m dns_opts                                    = [] [90m-> null[0m[0m
+      [31m-[0m[0m dns_search                                  = [] [90m-> null[0m[0m
+      [31m-[0m[0m entrypoint                                  = [] [90m-> null[0m[0m
+      [31m-[0m[0m env                                         = [] [90m-> null[0m[0m
+      [31m-[0m[0m group_add                                   = [] [90m-> null[0m[0m
+      [31m-[0m[0m hostname                                    = "kijanikiosk-payments" [90m-> null[0m[0m
+      [31m-[0m[0m id                                          = "8b40f07565cba7764b93d442798d42fb30594c4fd09fd22923df0cd946274bc6" [90m-> null[0m[0m
+      [31m-[0m[0m image                                       = "geerlingguy/docker-ubuntu2204-ansible:latest" [90m-> null[0m[0m
+      [31m-[0m[0m init                                        = false [90m-> null[0m[0m
+      [31m-[0m[0m ipc_mode                                    = "private" [90m-> null[0m[0m
+      [31m-[0m[0m log_driver                                  = "json-file" [90m-> null[0m[0m
+      [31m-[0m[0m log_opts                                    = {} [90m-> null[0m[0m
+      [31m-[0m[0m logs                                        = false [90m-> null[0m[0m
+      [31m-[0m[0m max_retry_count                             = 0 [90m-> null[0m[0m
+      [31m-[0m[0m memory                                      = 512 [90m-> null[0m[0m
+      [31m-[0m[0m memory_reservation                          = 0 [90m-> null[0m[0m
+      [31m-[0m[0m memory_swap                                 = 1024 [90m-> null[0m[0m
+      [31m-[0m[0m must_run                                    = true [90m-> null[0m[0m
+      [31m-[0m[0m name                                        = "kijanikiosk-payments" [90m-> null[0m[0m
+      [31m-[0m[0m network_data                                = [
+          [31m-[0m[0m {
+              [31m-[0m[0m gateway                   = "172.19.0.1"
+              [31m-[0m[0m global_ipv6_prefix_length = 0
+              [31m-[0m[0m ip_address                = "172.19.0.2"
+              [31m-[0m[0m ip_prefix_length          = 16
+              [31m-[0m[0m mac_address               = "3a:9d:43:90:aa:d6"
+              [31m-[0m[0m network_name              = "kijanikiosk-net"
+                [90m# (2 unchanged attributes hidden)[0m[0m
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m network_mode                                = "bridge" [90m-> null[0m[0m
+      [31m-[0m[0m privileged                                  = true [90m-> null[0m[0m
+      [31m-[0m[0m publish_all_ports                           = false [90m-> null[0m[0m
+      [31m-[0m[0m read_only                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m remove_volumes                              = true [90m-> null[0m[0m
+      [31m-[0m[0m restart                                     = "no" [90m-> null[0m[0m
+      [31m-[0m[0m rm                                          = false [90m-> null[0m[0m
+      [31m-[0m[0m runtime                                     = "runc" [90m-> null[0m[0m
+      [31m-[0m[0m security_opts                               = [
+          [31m-[0m[0m "label=disable",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m shm_size                                    = 64 [90m-> null[0m[0m
+      [31m-[0m[0m start                                       = true [90m-> null[0m[0m
+      [31m-[0m[0m stdin_open                                  = false [90m-> null[0m[0m
+      [31m-[0m[0m stop_timeout                                = 0 [90m-> null[0m[0m
+      [31m-[0m[0m storage_opts                                = {} [90m-> null[0m[0m
+      [31m-[0m[0m sysctls                                     = {} [90m-> null[0m[0m
+      [31m-[0m[0m tmpfs                                       = {
+          [31m-[0m[0m "/run"      = [90mnull[0m[0m
+          [31m-[0m[0m "/run/lock" = [90mnull[0m[0m
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tty                                         = true [90m-> null[0m[0m
+      [31m-[0m[0m wait                                        = false [90m-> null[0m[0m
+      [31m-[0m[0m wait_timeout                                = 60 [90m-> null[0m[0m
+        [90m# (8 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m networks_advanced {
+          [31m-[0m[0m aliases      = [] [90m-> null[0m[0m
+          [31m-[0m[0m name         = "kijanikiosk-net" [90m-> null[0m[0m
+            [90m# (3 unchanged attributes hidden)[0m[0m
+        }
+
+      [31m-[0m[0m ports {
+          [31m-[0m[0m external = 2223 [90m-> null[0m[0m
+          [31m-[0m[0m internal = 22 [90m-> null[0m[0m
+          [31m-[0m[0m ip       = "0.0.0.0" [90m-> null[0m[0m
+          [31m-[0m[0m protocol = "tcp" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m volumes {
+          [31m-[0m[0m container_path = "/sys/fs/cgroup" [90m-> null[0m[0m
+          [31m-[0m[0m host_path      = "/sys/fs/cgroup" [90m-> null[0m[0m
+          [31m-[0m[0m read_only      = false [90m-> null[0m[0m
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+    }
+
+[1m  # module.server["payments"].null_resource.provision_ssh[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "null_resource" "provision_ssh" {
+      [31m-[0m[0m id       = "685676920186687433" [90m-> null[0m[0m
+      [31m-[0m[0m triggers = {
+          [31m-[0m[0m "container_id" = "8b40f07565cba7764b93d442798d42fb30594c4fd09fd22923df0cd946274bc6"
+        } [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m [0m0 to add, 0 to change, 7 to destroy.
+
+Changes to Outputs:
+  [31m-[0m[0m api_server_ip        = "127.0.0.1" [90m-> null[0m[0m
+  [31m-[0m[0m api_server_port      = 2222 [90m-> null[0m[0m
+  [31m-[0m[0m logs_server_ip       = "127.0.0.1" [90m-> null[0m[0m
+  [31m-[0m[0m logs_server_port     = 2224 [90m-> null[0m[0m
+  [31m-[0m[0m payments_server_ip   = "127.0.0.1" [90m-> null[0m[0m
+  [31m-[0m[0m payments_server_port = 2223 [90m-> null[0m[0m
+  [31m-[0m[0m ssh_commands         = {
+      [31m-[0m[0m api      = "ssh -i ~/.ssh/id_rsa -p 2222 root@127.0.0.1"
+      [31m-[0m[0m logs     = "ssh -i ~/.ssh/id_rsa -p 2224 root@127.0.0.1"
+      [31m-[0m[0m payments = "ssh -i ~/.ssh/id_rsa -p 2223 root@127.0.0.1"
+    } [90m-> null[0m[0m
+[0m[1mmodule.server["payments"].null_resource.provision_ssh: Destroying... [id=685676920186687433][0m[0m
+[0m[1mmodule.server["api"].null_resource.provision_ssh: Destroying... [id=7307854859010095495][0m[0m
+[0m[1mmodule.server["logs"].null_resource.provision_ssh: Destroying... [id=6497557741611884276][0m[0m
+[0m[1mmodule.server["api"].null_resource.provision_ssh: Destruction complete after 0s[0m
+[0m[1mmodule.server["payments"].null_resource.provision_ssh: Destruction complete after 0s[0m
+[0m[1mmodule.server["api"].docker_container.vm: Destroying... [id=6ad2477c34397ffb965369cff48d80183b71bbcb167e23bd33964e7e22a9c15e][0m[0m
+[0m[1mmodule.server["logs"].null_resource.provision_ssh: Destruction complete after 0s[0m
+[0m[1mmodule.server["payments"].docker_container.vm: Destroying... [id=8b40f07565cba7764b93d442798d42fb30594c4fd09fd22923df0cd946274bc6][0m[0m
+[0m[1mmodule.server["logs"].docker_container.vm: Destroying... [id=b4ff45f86a6503ca5bf0f3a218194d61290416b711a4d2eb12954cf712165bc6][0m[0m
+[0m[1mmodule.server["api"].docker_container.vm: Destruction complete after 1s[0m
+[0m[1mmodule.server["payments"].docker_container.vm: Destruction complete after 1s[0m
+[0m[1mmodule.server["logs"].docker_container.vm: Destruction complete after 1s[0m
+[0m[1mdocker_network.kijanikiosk: Destroying... [id=30a928d24ac87ac63623dcb9152e3519aad4d802e8d796e2cd432b5f28348746][0m[0m
+[0m[1mdocker_network.kijanikiosk: Destruction complete after 3s[0m
+[0m[1m[32m
+Destroy complete! Resources: 7 destroyed.[0m

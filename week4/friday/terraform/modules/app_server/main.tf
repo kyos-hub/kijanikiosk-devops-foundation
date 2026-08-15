@@ -1,18 +1,18 @@
 /*
-  modules/app_server (Docker path)
+  modules/app_server (Docker path, v2)
 
-  Provisions one systemd-and-sshd-capable container per server, standing in
-  for a VM. This replaces the original Multipass-based module after Multipass
-  proved incompatible with this machine's WSL2 kernel (snap's mount-namespace
-  confinement fails under WSL2 — a documented, unresolved compatibility gap,
-  not a config mistake). Documented as an explicit engineering decision in
-  hardening-decisions.md and reflection.md rather than silently swapped in.
+  Fix over the first Docker attempt: Docker Desktop runs its actual daemon
+  inside its own hidden WSL2 VM. Custom bridge-network container IPs
+  (e.g. 172.19.0.4) only exist inside that hidden VM's network namespace —
+  they are NOT reachable from the WSL distro or Windows host directly. Only
+  explicitly published ports cross that boundary. So each container's SSH
+  port is published to a distinct host port instead, and Ansible connects to
+  127.0.0.1:<published port>.
 
-  Image: geerlingguy/docker-ubuntu2204-ansible — built specifically for
-  testing Ansible against a systemd-enabled container (systemd as PID 1,
-  sshd pre-configured for root login). This keeps every downstream Ansible
-  task (systemd unit management, journald, etc.) working exactly as it
-  would against a real VM.
+  Also fixed: geerlingguy/docker-ubuntu2204-ansible does not ship
+  openssh-server pre-installed (it's built for Molecule's docker_exec
+  connection plugin, not SSH). The provisioner below installs and starts it
+  explicitly rather than assuming it's present.
 */
 
 terraform {
@@ -28,10 +28,16 @@ resource "docker_container" "vm" {
   name       = var.server_name
   image      = var.image
   hostname   = var.server_name
-  privileged = true # required for systemd to manage cgroups inside the container
+  privileged = true
+  tty        = true # required: systemd as PID1 crashes silently without a TTY attached (found via diagnosis after a Docker Desktop crash)
 
   networks_advanced {
     name = var.network_name
+  }
+
+  ports {
+    internal = 22
+    external = var.ssh_host_port
   }
 
   tmpfs = {
@@ -48,15 +54,16 @@ resource "docker_container" "vm" {
   memory     = var.memory_mb
   cpu_shares = var.cpu_shares
 
-  # geerlingguy's image entrypoint starts systemd as PID 1 and brings up sshd.
+  # memory_swap is computed by the Docker daemon and drifts against Terraform's
+  # recorded state even when nothing meaningful changed — a known provider
+  # quirk, not a real config difference. Ignored so the second-run idempotency
+  # check (Requirement 1, criterion 6) reflects actual drift, not this noise.
+  lifecycle {
+    ignore_changes = [memory_swap]
+  }
 }
 
-# SSH key injection — Docker has no cloud-init equivalent, so the public key
-# is copied in and permissions fixed immediately after the container is up.
-# Requirement 1 criterion 3's "capture IP dynamically" is satisfied more
-# directly here than under Multipass: docker_container.network_data is
-# populated synchronously by the provider, no external-data-source shim needed.
-resource "null_resource" "inject_ssh_key" {
+resource "null_resource" "provision_ssh" {
   depends_on = [docker_container.vm]
 
   triggers = {
@@ -70,12 +77,17 @@ resource "null_resource" "inject_ssh_key" {
         docker exec ${var.server_name} test -d /root 2>/dev/null && break
         sleep 1
       done
+
+      docker exec ${var.server_name} bash -c "which sshd > /dev/null 2>&1 || (apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq openssh-server)"
+      docker exec ${var.server_name} bash -c "sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config || true"
+      docker exec ${var.server_name} mkdir -p /run/sshd
       docker exec ${var.server_name} mkdir -p /root/.ssh
       docker cp ${var.ssh_public_key_path} ${var.server_name}:/root/.ssh/authorized_keys
       docker exec ${var.server_name} chmod 700 /root/.ssh
       docker exec ${var.server_name} chmod 600 /root/.ssh/authorized_keys
       docker exec ${var.server_name} chown -R root:root /root/.ssh
-      docker exec ${var.server_name} bash -c "systemctl restart sshd || service ssh restart || true"
+      docker exec ${var.server_name} systemctl enable ssh
+      docker exec ${var.server_name} systemctl restart ssh
     EOT
   }
 }

@@ -11,23 +11,27 @@ variable "ssh_public_key_path" {
 }
 
 variable "servers" {
-  description = "Map of server definitions provisioned via for_each. Keys are logical server names; values are per-server sizing overrides (the Docker equivalent of instance type)."
+  description = "Map of server definitions provisioned via for_each. Keys are logical server names; values are per-server sizing overrides and the distinct host port each server's SSH is published on."
   type = map(object({
-    memory_mb  = number
-    cpu_shares = number
+    memory_mb     = number
+    cpu_shares    = number
+    ssh_host_port = number
   }))
   default = {
     api = {
-      memory_mb  = 512
-      cpu_shares = 512
+      memory_mb     = 512
+      cpu_shares    = 512
+      ssh_host_port = 2222
     }
     payments = {
-      memory_mb  = 512
-      cpu_shares = 512
+      memory_mb     = 512
+      cpu_shares    = 512
+      ssh_host_port = 2223
     }
     logs = {
-      memory_mb  = 768
-      cpu_shares = 512
+      memory_mb     = 768
+      cpu_shares    = 512
+      ssh_host_port = 2224
     }
   }
 }
