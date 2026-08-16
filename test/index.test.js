@@ -6,7 +6,7 @@ describe('calculateTotal', () => {
       { price: 100, qty: 2 },
       { price: 50, qty: 1 },
     ];
-    expect(calculateTotal(items)).toBe(999);
+    expect(calculateTotal(items)).toBe(250);
   });
 
   test('defaults qty to 1 when omitted', () => {
