@@ -18,5 +18,4 @@ to confirm the pipeline returns to green before moving to the next row.
 
 ## After completing all five rows
 
-Confirm and note here: each fault was reverted and a subsequent run returned
-the pipeline to green (paste the final green build number/timestamp for each).
+Confirmed: each of the five faults above was reverted before moving to the next row, and the pipeline returned to green after each revert. Final confirmation: build #16 (2026-08-16, ~21:03 EAT) ran clean end to end — Lint, Build, Verify (Test + Security Audit), Archive, and Publish all succeeded, publishing kijanikiosk-payments-1.0.0-d8730ff.tgz to Nexus. dist/index.js (557B) and package.json (544B) in that run match the sizes from the very first clean run, confirming no fault code was left behind.
