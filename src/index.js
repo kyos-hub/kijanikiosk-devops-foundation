@@ -9,10 +9,10 @@ function calculateTotal(items) {
     throw new TypeError('items must be an array');
   }
   return items.reduce((sum, item) => sum + (item.price || 0) * (item.qty || 1), 0);
-}
+}}
 
 function formatCurrency(amount, currency = 'KES') {
   return `${currency} ${amount.toFixed(2)}`;
-}
+}}
 
 module.exports = { calculateTotal, formatCurrency };
